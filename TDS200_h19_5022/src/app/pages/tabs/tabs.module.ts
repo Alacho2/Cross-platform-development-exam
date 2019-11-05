@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { TabsPage } from './tabs.page';
-import {canActivate, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
+import {canActivate, redirectLoggedInTo, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
 
 const routes: Routes = [
   {
@@ -15,7 +15,9 @@ const routes: Routes = [
     children: [
       { path: 'home', loadChildren: () => import('../home/home.module').then( m => m.HomePageModule), },
       //{ path: 'tab2', loadChildren: './pages/tab2/tab2.module#Tab2PageModule' },
-      { path: 'tab2', loadChildren: '../tab2/tab2.module#Tab2PageModule' },
+      { path: 'tab2', loadChildren: '../tab2/tab2.module#Tab2PageModule', },
+      { path: 'create-room', loadChildren: '../create-room/create-room.module#CreateRoomPageModule', },
+      { path: 'login', loadChildren: '../login/login.module#LoginPageModule', ...canActivate(redirectLoggedInTo([''])) }
     ],
   },
   { path: '',

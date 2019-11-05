@@ -45,21 +45,17 @@ export class LoginPage implements OnInit {
       return;
     }
     if (which === "login") {
-
       try {
         const result = await this.authService.loginUser(this.user);
-        this.router.navigate(['home']);
+        this.router.navigate(['tabs/home']);
       } catch (exception) {
         console.warn(exception);
       }
 
     } else if (which === "register") {
-
       try {
         const result = await this.authService.registerUser(this.user);
-        // Navigation happens in the router
-        //
-        // this.router.navigate(['tabs/home']);
+        this.router.navigate(['tabs/home']);
       } catch (exception) {
         console.warn(exception);
       }
