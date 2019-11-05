@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'create-room',
-    loadChildren: './pages/login/pages/create-room/create-room.module#CreateRoomPageModule',
+    loadChildren: './pages/create-room/create-room.module#CreateRoomPageModule',
     ...canActivate(redirectUnauthorizedTo(['login']))
   },
 ];
