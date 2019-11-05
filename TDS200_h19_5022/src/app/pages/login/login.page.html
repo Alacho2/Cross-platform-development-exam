@@ -1,12 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{title}}</ion-title>
+    <!-- <ion-title></ion-title> -->
+
+    <ion-buttons slot="start">
+
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
   <div class="ion-padding">
+
+    <h1 style="text-align: center; margin-bottom: 32px !important">{{title}}</h1>
     <div *ngIf="isLogin; then isLoginBlock else notLoginBlock"></div>
 
     <ng-template #isLoginBlock>

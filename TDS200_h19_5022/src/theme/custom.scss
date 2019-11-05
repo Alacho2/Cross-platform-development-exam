@@ -9,3 +9,20 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.ion-medium {
+  color: orange;
+  font-size: 30px;
+}
+
+ion-toolbar {
+  --border-width: 0 !important;
+  height: 50px;
+  margin-top: 8px;
+
+  ion-title {
+    height: 40px;
+    font-size: 28px;
+  }
+
+}

@@ -14,6 +14,11 @@ const routes: Routes = [
     loadChildren: './pages/login/login.module#LoginPageModule',
     ...canActivate(redirectLoggedInTo(['home']))
   },
+  {
+    path: 'create-room',
+    loadChildren: './pages/login/pages/create-room/create-room.module#CreateRoomPageModule',
+    ...canActivate(redirectUnauthorizedTo(['login']))
+  },
 ];
 
 @NgModule({
