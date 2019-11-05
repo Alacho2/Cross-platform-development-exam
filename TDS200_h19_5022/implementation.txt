@@ -1,2 +1,4 @@
-1) Sette opp firebase
-2) Login, registrering og logg ut
+1) Sette opp firebase [x]
+2) Login, registrering og logg ut [x]
+3) Lage rom [ ]
+4) Leie og leie ut [ ]
