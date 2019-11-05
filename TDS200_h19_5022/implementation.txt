@@ -1,0 +1,2 @@
+1) Sette opp firebase
+2) Login, registrering og logg ut
