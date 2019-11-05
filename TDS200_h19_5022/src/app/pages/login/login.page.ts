@@ -57,7 +57,9 @@ export class LoginPage implements OnInit {
 
       try {
         const result = await this.authService.registerUser(this.user);
-        this.router.navigate(['home']);
+        // Navigation happens in the router
+        //
+        // this.router.navigate(['tabs/home']);
       } catch (exception) {
         console.warn(exception);
       }
