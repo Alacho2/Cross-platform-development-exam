@@ -41,7 +41,8 @@ export class LoginPage implements OnInit {
     const {email, password} = this.user;
 
     if (email.length === 0 && password.length === 0) {
-      this.displayToast().then(toast => toast.present());
+      this.displayToast("You need a username or password")
+        .then(toast => toast.present());
       return;
     }
     if (which === "login") {
@@ -49,6 +50,8 @@ export class LoginPage implements OnInit {
         const result = await this.authService.loginUser(this.user);
         this.router.navigate(['tabs/home']);
       } catch (exception) {
+        this.displayToast("Wrong username or password")
+          .then(toast => toast.present());
         console.warn(exception);
       }
 
@@ -57,14 +60,16 @@ export class LoginPage implements OnInit {
         const result = await this.authService.registerUser(this.user);
         this.router.navigate(['tabs/home']);
       } catch (exception) {
+        this.displayToast("Wrong username or password")
+          .then(toast => toast.present());
         console.warn(exception);
       }
     }
   }
 
-  displayToast() {
+  displayToast(message: string) {
     const toastOptions: ToastOptions = {
-      message: "You need a username / password",
+      message,
       duration: 1500,
       position: 'bottom'
     };
