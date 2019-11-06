@@ -1,17 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Home
-    </ion-title>
 
     <ion-buttons slot="end">
-      <ion-icon class="ion-medium" name="add"></ion-icon>
+      <ion-icon class="ion-medium" name="add" (click)="createRoom()"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="ion-padding">
+    <h1 style="text-align: center; margin-bottom: 32px !important">Home</h1>
     <ion-button (click)="attemptSignOut()">Log out</ion-button>
   </div>
 </ion-content>
