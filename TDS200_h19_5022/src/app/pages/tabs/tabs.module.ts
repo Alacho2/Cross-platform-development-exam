@@ -16,19 +16,21 @@ const routes: Routes = [
       { path: 'home', loadChildren: () => import('../home/home.module').then( m => m.HomePageModule), },
       //{ path: 'tab2', loadChildren: './pages/tab2/tab2.module#Tab2PageModule' },
       { path: 'tab2', loadChildren: '../tab2/tab2.module#Tab2PageModule', },
-      { path: 'create-room', loadChildren: '../create-room/create-room.module#CreateRoomPageModule', },
-      { path: 'login', loadChildren: '../login/login.module#LoginPageModule', ...canActivate(redirectLoggedInTo([''])) }
+      { path: 'create-room',
+        loadChildren: '../create-room/create-room.module#CreateRoomPageModule',
+        ...canActivate(redirectUnauthorizedTo(['tabs/login']))
+      },
+      {
+        path: 'login',
+        loadChildren: '../login/login.module#LoginPageModule',
+        ...canActivate(redirectLoggedInTo(['tabs/home']))
+      }
     ],
   },
   { path: '',
     redirectTo: 'tabs/home',
     pathMatch: 'full',
   },
-  /*{
-    path: 'create-room',
-    loadChildren: './pages/create-room/create-room.module#CreateRoomPageModule',
-    ...canActivate(redirectUnauthorizedTo(['login']))
-  } */
 ];
 
 @NgModule({
