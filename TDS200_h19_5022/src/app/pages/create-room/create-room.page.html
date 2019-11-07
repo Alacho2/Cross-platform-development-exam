@@ -1,9 +1,38 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>create-room</ion-title>
+    <!--<ion-icon name="arrow-back" (click)="goBack()"></ion-icon> -->
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <h1 class="main-title">Create a room</h1>
 
+  <ion-card>
+      <img src="https://images.wallpaperscraft.com/image/deer_art_vector_134088_1920x1080.jpg">
+    <ion-card-header>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div style="text-align: center">
+              <ion-icon name="camera" (click)="takePicture()"></ion-icon>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div style="text-align: center">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div style="text-align: center">
+              <ion-icon name="share-alt" (click)="uploadFunc()"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-card-header>
+  </ion-card>
 </ion-content>

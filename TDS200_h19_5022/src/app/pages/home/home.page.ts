@@ -1,6 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import {AuthService} from '../../service/auth.service';
 import {Router} from '@angular/router';
+import {ModalController} from '@ionic/angular';
+import {CreateRoomPage} from '../create-room/create-room.page';
+import { ModalOptions } from '@ionic/core';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -9,12 +14,21 @@ import {Router} from '@angular/router';
 })
 export class HomePage implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private modalController: ModalController,
+    private auth: AngularFireAuth) {
+
+    // Make sure we trigger a rerender if logged in
+    this.auth.authState.subscribe(() => {});
 
   }
 
-  ngOnInit(): void {
-    console.info(this.authService.getUserData());
+  ngOnInit(): void { }
+
+  isNotSignedIn() {
+    return this.auth.auth.currentUser === null;
   }
 
   async attemptSignOut() {
@@ -25,11 +39,15 @@ export class HomePage implements OnInit {
     }
   }
 
-  createRoom() {
-    try {
-      this.router.navigate(['tabs/create-room']);
-    } catch (exception) {
-      console.log(exception);
-    }
+  async addRoom() {
+    const mcOpts: ModalOptions = {
+      component: CreateRoomPage,
+      animated: true,
+    };
+
+    const modal = await this.modalController.create(mcOpts);
+    await modal.present();
+
+    console.log("Pling");
   }
 }

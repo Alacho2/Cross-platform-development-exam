@@ -14,6 +14,7 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireAuthGuardModule} from '@angular/fire/auth-guard';
 import {AngularFireModule} from '@angular/fire';
 import {firebaseConfig} from '../config';
+import {CreateRoomPageModule} from './pages/create-room/create-room.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +28,7 @@ import {firebaseConfig} from '../config';
     AngularFireAuthModule, // auth
     AngularFireStorageModule, // storage
     AngularFireAuthGuardModule,
+    CreateRoomPageModule
   ],
   providers: [
     StatusBar,

@@ -21,9 +21,5 @@ export class AuthService {
   async logoutUser() {
     return await this.fireauth.auth.signOut();
   }
-
-  async getUserData() {
-    return this.fireauth.auth.currentUser;
-  }
 }
 
