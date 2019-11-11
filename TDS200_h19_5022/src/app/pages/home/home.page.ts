@@ -48,6 +48,5 @@ export class HomePage implements OnInit {
     const modal = await this.modalController.create(mcOpts);
     await modal.present();
 
-    console.log("Pling");
   }
 }

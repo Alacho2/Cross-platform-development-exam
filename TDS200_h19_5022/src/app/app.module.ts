@@ -15,6 +15,7 @@ import {AngularFireAuthGuardModule} from '@angular/fire/auth-guard';
 import {AngularFireModule} from '@angular/fire';
 import {firebaseConfig} from '../config';
 import {CreateRoomPageModule} from './pages/create-room/create-room.module';
+import {Camera} from '@ionic-native/camera/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,6 +34,7 @@ import {CreateRoomPageModule} from './pages/create-room/create-room.module';
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

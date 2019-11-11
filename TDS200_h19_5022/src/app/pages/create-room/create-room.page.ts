@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalController, NavController} from '@ionic/angular';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-create-room',
@@ -8,10 +9,17 @@ import {ModalController, NavController} from '@ionic/angular';
 })
 export class CreateRoomPage implements OnInit {
 
-  constructor(private modalController: ModalController) { }
+  private cameraPreview = '';
+  private imageBase = '';
+  private pictureDesc = '';
+
+  constructor(
+    private modalController: ModalController,
+    private camera: Camera
+  ) { }
 
   ngOnInit() {
-
+    this.takePicture();
   }
 
   dismissModal() {
@@ -22,6 +30,22 @@ export class CreateRoomPage implements OnInit {
     }
   }
 
+  async takePicture() {
+
+    const cameraOptions: CameraOptions = {
+      allowEdit: true,
+      quality: 100,
+      saveToPhotoAlbum: true,
+    };
+
+    try {
+      const imageData = await this.camera.getPicture(cameraOptions);
+      this.cameraPreview = 'data:image/jpeg;base64,' + imageData;
+      this.imageBase = imageData;
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
 
 
