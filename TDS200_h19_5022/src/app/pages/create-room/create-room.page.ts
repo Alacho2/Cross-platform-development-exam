@@ -6,6 +6,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { v4 as uuid } from 'uuid';
+import displayToast from '../../sharedContent';
 
 @Component({
   selector: 'app-create-room',
@@ -73,15 +74,20 @@ export class CreateRoomPage implements OnInit {
     const imageRef = await this.uploadImageToFirestorage();
     const { landlord, description, size } = this.roomInfo;
 
+    if (description.length < 10 || size < 10) {
+      displayToast("Make sure to add a description or size").then(toast =>
+        toast.present()
+      );
+      return;
+    }
+
     this.fireStore.collection('rooms').add({
       landlord,
       description,
       size,
       image: imageRef,
-      // lat: _location.coords.latitude,
-      // long: _location.coords.longitude,
     });
 
-    console.log(this.roomInfo);
+    // console.log(this.roomInfo);
   }
 }

@@ -3,7 +3,7 @@ import { User } from '../../Types/General';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
 import {ToastController} from '@ionic/angular';
-import { ToastOptions } from '@ionic/core';
+import displayToast from '../../sharedContent';
 
 @Component({
   selector: 'app-login',
@@ -42,7 +42,7 @@ export class LoginPage implements OnInit {
     const {email, password} = this.user;
 
     if (email.length === 0 || password.length === 0) {
-      this.displayToast("You need a username or password").then(toast =>
+      displayToast("You need a username or password").then(toast =>
         toast.present()
       );
       return;
@@ -52,7 +52,7 @@ export class LoginPage implements OnInit {
         const result = await this.authService.loginUser(this.user);
         this.router.navigate(['tabs/home']);
       } catch (exception) {
-        this.displayToast("Wrong username or password").then(toast =>
+        displayToast("Wrong username or password").then(toast =>
           toast.present()
         );
 
@@ -64,7 +64,7 @@ export class LoginPage implements OnInit {
         const result = await this.authService.registerUser(this.user);
         this.router.navigate(['tabs/home']);
       } catch (exception) {
-        this.displayToast("Wrong username or password").then(toast =>
+        displayToast("Wrong username or password").then(toast =>
           toast.present()
         );
 
@@ -73,14 +73,5 @@ export class LoginPage implements OnInit {
     }
   }
 
-  displayToast(message: string) {
-    const toastOptions: ToastOptions = {
-      message,
-      duration: 1500,
-      position: 'bottom'
-    };
-
-    return this.toastCtrl.create(toastOptions);
-  }
 
 }

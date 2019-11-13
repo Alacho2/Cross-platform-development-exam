@@ -7,7 +7,12 @@
   <div class="ion-padding">
     <h1 class="main-title">Home</h1>
     <ion-button (click)="attemptSignOut()">Log out</ion-button>
-  </div>
+
+    <ion-list>
+      <ion-item *ngFor="let room of rooms$ | async; trackBy: trackFunc" lines="none">
+
+      </ion-item>
+    </ion-list>
 
   <div *ngIf="isNotSignedIn(); then notLoginBlock else isLoginBlock"></div>
 
@@ -23,5 +28,6 @@
   <ng-template #notLoginBlock >
     <p>Hey</p>
   </ng-template>
+  </div>
 </ion-content>
 

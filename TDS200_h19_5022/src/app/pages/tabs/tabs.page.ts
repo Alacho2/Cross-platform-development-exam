@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Component({
   selector: 'app-tabs',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabsPage implements OnInit {
 
-  constructor() { }
+  private youOrLogin = "Login";
+
+  constructor(private auth: AngularFireAuth) {
+    this.auth.authState.subscribe(state => {
+      this.youOrLogin = state === null ? 'Login' : 'You';
+    });
+  }
 
   ngOnInit() {
   }

@@ -14,9 +14,15 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       { path: 'home', loadChildren: () => import('../home/home.module').then( m => m.HomePageModule), },
-      //{ path: 'tab2', loadChildren: './pages/tab2/tab2.module#Tab2PageModule' },
+      // { path: 'tab2', loadChildren: './pages/tab2/tab2.module#Tab2PageModule' },
       { path: 'tab2', loadChildren: '../tab2/tab2.module#Tab2PageModule', },
-      { path: 'create-room',
+      {
+        path: 'profile',
+        loadChildren: '../tab2/tab2.module#Tab2PageModule',
+        ...canActivate(redirectUnauthorizedTo(['tabs/login']))
+      },
+      {
+        path: 'create-room',
         loadChildren: '../create-room/create-room.module#CreateRoomPageModule',
         ...canActivate(redirectUnauthorizedTo(['tabs/login']))
       },
@@ -27,7 +33,8 @@ const routes: Routes = [
       }
     ],
   },
-  { path: '',
+  {
+    path: '',
     redirectTo: 'tabs/home',
     pathMatch: 'full',
   },

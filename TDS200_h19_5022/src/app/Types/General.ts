@@ -8,3 +8,7 @@ export interface RoomInfo {
   landlord: string;
   size: number;
 }
+
+export interface Room extends RoomInfo {
+  imageRef: string;
+}
