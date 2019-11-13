@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {ModalController, NavController} from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { RoomInfo } from '../../Types/General';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'app-create-room',
@@ -11,12 +16,21 @@ export class CreateRoomPage implements OnInit {
 
   private cameraPreview = '';
   private imageBase = '';
-  private pictureDesc = '';
+  private roomInfo: RoomInfo = {
+    landlord: "",
+    description: "",
+    size: 0,
+  };
 
   constructor(
     private modalController: ModalController,
-    private camera: Camera
-  ) { }
+    private camera: Camera,
+    private auth: AngularFireAuth,
+    private fireStorage: AngularFireStorage,
+    private fireStore: AngularFirestore
+  ) {
+    this.roomInfo.landlord = this.auth.auth.currentUser.email;
+  }
 
   ngOnInit() {
     this.takePicture();
@@ -47,6 +61,27 @@ export class CreateRoomPage implements OnInit {
     }
   }
 
+  async uploadImageToFirestorage() {
+    const fileName = `tds-${uuid()}.png`;
+    const firestorageFileRef = this.fireStorage.ref(fileName);
+    const uploadTask = firestorageFileRef.putString(this.imageBase, 'base64', { contentType: 'image/png' });
+    await uploadTask.then();
+    return firestorageFileRef.getDownloadURL().toPromise();
+  }
 
+  async upload() {
+    const imageRef = await this.uploadImageToFirestorage();
+    const { landlord, description, size } = this.roomInfo;
 
+    this.fireStore.collection('rooms').add({
+      landlord,
+      description,
+      size,
+      image: imageRef,
+      // lat: _location.coords.latitude,
+      // long: _location.coords.longitude,
+    });
+
+    console.log(this.roomInfo);
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import User from '../../service/Types';
+import { User } from '../../Types/General';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
 import {ToastController} from '@ionic/angular';
@@ -10,11 +10,15 @@ import { ToastOptions } from '@ionic/core';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+
 export class LoginPage implements OnInit {
 
   private isLogin = true;
   private title = "Login";
-  private user: User = {email: "", password: ""};
+  private user: User = {
+    email: "",
+    password: "",
+  };
 
   constructor(
     private authService: AuthService,
@@ -22,9 +26,7 @@ export class LoginPage implements OnInit {
     private toastCtrl: ToastController,
   ) { }
 
-  ngOnInit() {
-    console.log("You're in log in");
-  }
+  ngOnInit() { }
 
   useRegister() {
     if (this.isLogin) {
@@ -36,13 +38,13 @@ export class LoginPage implements OnInit {
     }
   }
 
-
   async attemptLoginOrRegister(which: "login" | "register") {
     const {email, password} = this.user;
 
-    if (email.length === 0 && password.length === 0) {
-      this.displayToast("You need a username or password")
-        .then(toast => toast.present());
+    if (email.length === 0 || password.length === 0) {
+      this.displayToast("You need a username or password").then(toast =>
+        toast.present()
+      );
       return;
     }
     if (which === "login") {
@@ -50,8 +52,10 @@ export class LoginPage implements OnInit {
         const result = await this.authService.loginUser(this.user);
         this.router.navigate(['tabs/home']);
       } catch (exception) {
-        this.displayToast("Wrong username or password")
-          .then(toast => toast.present());
+        this.displayToast("Wrong username or password").then(toast =>
+          toast.present()
+        );
+
         console.warn(exception);
       }
 
@@ -60,8 +64,10 @@ export class LoginPage implements OnInit {
         const result = await this.authService.registerUser(this.user);
         this.router.navigate(['tabs/home']);
       } catch (exception) {
-        this.displayToast("Wrong username or password")
-          .then(toast => toast.present());
+        this.displayToast("Wrong username or password").then(toast =>
+          toast.present()
+        );
+
         console.warn(exception);
       }
     }

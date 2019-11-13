@@ -11,28 +11,43 @@
   <h1 class="main-title">Create a room</h1>
 
   <ion-card>
-      <img src="https://images.wallpaperscraft.com/image/deer_art_vector_134088_1920x1080.jpg">
-    <ion-card-header>
+       <img [src]="cameraPreview">
+    <ion-card-content>
       <ion-grid>
         <ion-row>
           <ion-col>
-            <div style="text-align: center">
-              <ion-icon name="camera" (click)="takePicture()"></ion-icon>
+            <div style="text-align: center; padding-top: 8px">
+              <ion-icon name="camera" style="zoom:2.0; text-align: center" (click)="takePicture()"></ion-icon>
             </div>
           </ion-col>
           <ion-col>
-            <div style="text-align: center">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </div>
+            <p style="position: absolute; top: 20px">Size</p>
+          <ion-input [(ngModel)]="roomInfo.size"
+                     type="number"
+                     class="custom-input"
+                     style=" width: 50%; text-align: center">
+          </ion-input>
           </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-textarea [(ngModel)]="roomInfo.description"
+                        class="custom-textarea"
+                        placeholder="Give a brief description of your room...">
+          </ion-textarea>
+        </ion-row>
+        <ion-row>
           <ion-col>
-            <div style="text-align: center">
-              <ion-icon name="share-alt" (click)="uploadFunc()"></ion-icon>
+            <div class="ion-text-center">
+              <ion-card-subtitle>Landlord:</ion-card-subtitle>
+              <ion-card-subtitle>{{this.roomInfo.landlord}}</ion-card-subtitle>
             </div>
           </ion-col>
         </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-button (click)="upload()">Upload</ion-button>
+        </ion-row>
       </ion-grid>
+    </ion-card-content>
 
-    </ion-card-header>
   </ion-card>
 </ion-content>

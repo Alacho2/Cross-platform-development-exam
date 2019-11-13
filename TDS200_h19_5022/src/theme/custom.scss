@@ -1,3 +1,5 @@
+$border-color: var(--ion-color-medium);
+
 .custom-input {
   border: 1px solid var(--ion-color-medium);
   border-radius: 8px;
@@ -24,10 +26,18 @@ ion-toolbar {
     height: 40px;
     font-size: 28px;
   }
-
 }
 
 .main-title {
   text-align: center;
   margin-bottom: 32px !important
+}
+
+.custom-textarea {
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 0 8px !important; //justify the content
+  textarea::-webkit-input-placeholder {
+    text-align: center;
+  }
 }
