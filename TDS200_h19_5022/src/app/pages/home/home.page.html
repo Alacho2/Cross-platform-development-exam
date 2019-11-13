@@ -1,33 +1,29 @@
-<ion-header>
-  <ion-toolbar>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <div class="ion-padding">
+  <div class="top">
     <h1 class="main-title">Home</h1>
     <ion-button (click)="attemptSignOut()">Log out</ion-button>
 
     <ion-list>
-      <ion-item *ngFor="let room of rooms$ | async; trackBy: trackFunc" lines="none">
+      <div class="room-container"
+           *ngFor="let room of rooms$ | async; trackBy: trackFunc">
+        <room-card [room]="room"></room-card>
+      </div>
 
-      </ion-item>
     </ion-list>
 
   <div *ngIf="isNotSignedIn(); then notLoginBlock else isLoginBlock"></div>
 
-
-  <ng-template #isLoginBlock>
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="addRoom()">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-  </ng-template>
-
-  <ng-template #notLoginBlock >
-    <p>Hey</p>
-  </ng-template>
   </div>
 </ion-content>
 
+<ng-template #isLoginBlock>
+
+  <ion-fab id="sticky-button" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addRoom()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ng-template>
+
+<ng-template #notLoginBlock >
+</ng-template>

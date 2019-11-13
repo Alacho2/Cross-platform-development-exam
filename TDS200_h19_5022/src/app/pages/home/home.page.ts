@@ -32,8 +32,8 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(): void {
-    const collectionRef = this.firestore.collection<Room>('rooms');
-    this.rooms$ = collectionRef.valueChanges({idField: 'id'}) as Observable<Room[]>;
+    //const collectionRef = this.firestore.collection<Room>('rooms');
+    //this.rooms$ = collectionRef.valueChanges({idField: 'id'}) as Observable<Room[]>;
   }
 
   isNotSignedIn() {
@@ -60,7 +60,7 @@ export class HomePage implements OnInit {
   }
 
   trackFunc(index, item) {
-    console.log(item, index);
+    // console.log(item, index);
     return item.id;
   }
 }

@@ -15,6 +15,11 @@
     <ion-card-content>
       <ion-grid>
         <ion-row>
+          <ion-col style="text-align: center; font-size: 20px">
+            <ion-input placeholder="Choose a selling title" [(ngModel)]="roomInfo.title"></ion-input>
+          </ion-col>
+        </ion-row>
+        <ion-row>
           <ion-col>
             <div style="text-align: center; padding-top: 8px">
               <ion-icon name="camera" style="zoom:2.0; text-align: center" (click)="takePicture()"></ion-icon>
@@ -30,10 +35,13 @@
           </ion-col>
         </ion-row>
         <ion-row>
+          <ion-col>
           <ion-textarea [(ngModel)]="roomInfo.description"
                         class="custom-textarea"
                         placeholder="Give a brief description of your room...">
           </ion-textarea>
+          <p class="ion-text-end">{{roomInfo.description.length}}/250</p>
+          </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>

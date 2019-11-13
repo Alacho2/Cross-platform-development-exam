@@ -18,6 +18,7 @@ export class CreateRoomPage implements OnInit {
   private cameraPreview = '';
   private imageBase = '';
   private roomInfo: RoomInfo = {
+    title: "",
     landlord: "",
     description: "",
     size: 0,
@@ -71,22 +72,35 @@ export class CreateRoomPage implements OnInit {
   }
 
   async upload() {
-    const imageRef = await this.uploadImageToFirestorage();
-    const { landlord, description, size } = this.roomInfo;
+    const image = await this.uploadImageToFirestorage();
+    const { landlord, description, size, title } = this.roomInfo;
 
-    if (description.length < 10 || size < 10) {
-      displayToast("Make sure to add a description or size").then(toast =>
+    console.log(image)
+    return;
+
+    if (description.length < 10 || size < 10 || !title.length) {
+      displayToast("Make sure to add title, description, and size").then(toast =>
+        toast.present()
+      );
+      return;
+    }
+
+    if (description.length > 250 || title.length > 50) {
+      displayToast("Keep descriptions (250) and titles (50) short").then(toast =>
         toast.present()
       );
       return;
     }
 
     this.fireStore.collection('rooms').add({
+      title,
       landlord,
       description,
       size,
-      image: imageRef,
+      image,
     });
+
+    this.dismissModal();
 
     // console.log(this.roomInfo);
   }
