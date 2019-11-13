@@ -36,6 +36,15 @@
         </ion-row>
         <ion-row>
           <ion-col>
+            <ion-label>D MMM YYYY H:mm</ion-label>
+            <ion-datetime displayFormat="D MMM YYYY H:mm" min="1997" max="2010" value="2005-06-17T11:06Z"></ion-datetime>
+          </ion-col>
+          <ion-col>
+
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
           <ion-textarea [(ngModel)]="roomInfo.description"
                         class="custom-textarea"
                         placeholder="Give a brief description of your room...">

@@ -75,9 +75,6 @@ export class CreateRoomPage implements OnInit {
     const image = await this.uploadImageToFirestorage();
     const { landlord, description, size, title } = this.roomInfo;
 
-    console.log(image)
-    return;
-
     if (description.length < 10 || size < 10 || !title.length) {
       displayToast("Make sure to add title, description, and size").then(toast =>
         toast.present()
@@ -92,12 +89,16 @@ export class CreateRoomPage implements OnInit {
       return;
     }
 
+    const date = new Date();
+
     this.fireStore.collection('rooms').add({
       title,
       landlord,
       description,
       size,
       image,
+      date,
+      occupied: false,
     });
 
     this.dismissModal();
