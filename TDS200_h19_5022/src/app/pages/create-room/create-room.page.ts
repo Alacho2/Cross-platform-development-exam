@@ -7,6 +7,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { v4 as uuid } from 'uuid';
 import displayToast from '../../sharedContent';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-create-room',
@@ -17,10 +18,14 @@ export class CreateRoomPage implements OnInit {
 
   private cameraPreview = '';
   private imageBase = '';
+  private currTime = '';
   private roomInfo: RoomInfo = {
-    title: "",
-    landlord: "",
-    description: "",
+    title: '',
+    landlord: '',
+    description: '',
+    creationDate: '',
+    // startTime: '',
+    // endTime: '',
     size: 0,
   };
 
@@ -32,6 +37,9 @@ export class CreateRoomPage implements OnInit {
     private fireStore: AngularFirestore
   ) {
     this.roomInfo.landlord = this.auth.auth.currentUser.email;
+    this.currTime = moment().format();
+    // this.roomInfo.endTime = moment().add(1, 'hours').format();
+    // this.roomInfo.startTime = moment().format();
   }
 
   ngOnInit() {
@@ -89,7 +97,7 @@ export class CreateRoomPage implements OnInit {
       return;
     }
 
-    const date = new Date();
+    const creationDate = new Date();
 
     this.fireStore.collection('rooms').add({
       title,
@@ -97,7 +105,7 @@ export class CreateRoomPage implements OnInit {
       description,
       size,
       image,
-      date,
+      creationDate,
       occupied: false,
     });
 

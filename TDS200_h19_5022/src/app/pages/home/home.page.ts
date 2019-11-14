@@ -8,6 +8,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { Room } from '../../Types/General';
 import { AngularFirestore } from '@angular/fire/firestore';
+import {filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -32,9 +33,13 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(): void {
+    // TODO (Håvard): Extract this to it's own method.
+    // Subscribe to the content from firebase, convert it to Array and do
+    // what needs to be done. Test if you can filter with title > 20
     const collectionRef = this.firestore.collection<Room>('rooms');
     this.rooms$ = collectionRef.valueChanges({idField: 'id'}) as Observable<Room[]>;
-
+    this.rooms$.subscribe(room => console.log(room));
+    console.log("Test");
   }
 
   isNotSignedIn() {

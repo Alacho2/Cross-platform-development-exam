@@ -1,1 +1,6 @@
 <img class="room-image" [src]="room.image" alt="Visual representation of room">
+<h3 class="room-title">{{room.title}}</h3>
+<p class="ion-text-end room-landlord" style="top: -2px">Rented away by:</p>
+<p class="ion-text-end room-landlord" style="top: 10px; right: 14px">{{stripEmailFromLandlord(room.landlord)}}</p>
+<p class="room-size">{{room.size}} <ion-icon class="sqm-icon" name="cube"></ion-icon></p>
+<p class="room-listing">{{convertToTimeFromNow(room.creationDate)}}</p>

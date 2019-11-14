@@ -8,6 +8,9 @@ export interface RoomInfo {
   description: string;
   landlord: string;
   size: number;
+  creationDate: string;
+  startTime?: string;
+  endTime?: string;
 }
 
 export interface Room extends RoomInfo {

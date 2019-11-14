@@ -1,6 +1,46 @@
 .room-image {
-  border-radius: 50px;
-  width: 98%;
-  margin-left: 4px;
-  margin-bottom: 8px;
+  border-radius: 25px;
+  width: 100%;
+  position: relative;
+  z-index: -1;
+  //margin-left: 4px;
+  //margin-bottom: 8px;
+
+}
+
+.room-title {
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+  color: white;
+}
+
+.room-landlord {
+  position: absolute;
+  //bottom: -8px;
+  right: 12px;
+  font-size: 10px;
+  color: white;
+}
+
+.room-size {
+  position: absolute;
+  bottom: 0;
+  left: 30px;
+  color: white;
+  font-size: 12px;
+
+  .sqm-icon {
+    position: inherit;
+    top: 2px;
+    left: 16px;
+  }
+}
+
+.room-listing {
+  position: absolute;
+  color: white;
+  bottom: 0;
+  left: 90px;
+  font-size: 12px;
 }

@@ -1,3 +1,10 @@
 #sticky-button {
   position: fixed !important; //override the default behaviour of floating button
 }
+
+.room-container {
+  position: relative;
+  margin: 10px;
+  box-shadow: inset 0px -40px 50px var(--ion-color-dark-shade);
+  border-radius: 25px;
+}
