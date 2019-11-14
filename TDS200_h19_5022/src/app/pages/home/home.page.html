@@ -4,14 +4,15 @@
     <ion-button (click)="attemptSignOut()">Log out</ion-button>
 
     <ion-list>
-      <div class="room-container"
-           *ngFor="let room of rooms$ | async; trackBy: trackFunc">
+      <div
+           *ngFor="let room of rooms; trackBy: trackFunc"
+           (click)="navigateToRoomInfo(room)">
         <room-card [room]="room"></room-card>
       </div>
 
     </ion-list>
 
-  <div *ngIf="isNotSignedIn(); then notLoginBlock else isLoginBlock"></div>
+    <div *ngIf="isNotSignedIn(); then notLoginBlock else isLoginBlock"></div>
 
   </div>
 </ion-content>
@@ -27,3 +28,4 @@
 
 <ng-template #notLoginBlock >
 </ng-template>
+

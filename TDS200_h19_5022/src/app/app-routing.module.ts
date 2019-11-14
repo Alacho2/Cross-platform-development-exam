@@ -20,6 +20,10 @@ const routes: Routes = [
     ...canActivate(redirectUnauthorizedTo(['login']))
   }, */
   { path: '', loadChildren: './pages/tabs/tabs.module#TabsPageModule' },
+  {
+    path: 'about',
+    loadChildren: '../about-room/about-room.module#AboutRoomPageModule'
+  }
 ];
 
 @NgModule({
