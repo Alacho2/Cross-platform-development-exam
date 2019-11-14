@@ -5,7 +5,7 @@
 
     <ion-list>
       <div class="room-container"
-           *ngFor="let room of rooms; trackBy: trackFunc">
+           *ngFor="let room of rooms$ | async; trackBy: trackFunc">
         <room-card [room]="room"></room-card>
       </div>
 
