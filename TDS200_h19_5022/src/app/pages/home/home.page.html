@@ -19,7 +19,8 @@
 
 <ng-template #isLoginBlock>
 
-  <ion-fab id="sticky-button" vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab *ngIf="!isiOS" id="sticky-button" vertical="bottom" horizontal="end">
+           <!-- vertical="bottom" horizontal="end" slot="fixed"> -->
     <ion-fab-button (click)="addRoom()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

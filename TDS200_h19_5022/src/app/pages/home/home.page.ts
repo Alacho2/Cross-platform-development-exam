@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 import {NavigationExtras, Router} from '@angular/router';
-import {ModalController, NavController} from '@ionic/angular';
+import {ModalController, NavController, Platform } from '@ionic/angular';
 import { CreateRoomPage } from '../create-room/create-room.page';
 import { ModalOptions } from '@ionic/core';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -18,6 +18,7 @@ export class HomePage implements OnInit {
 
   private rooms: Room[];
   private collectionRef;
+  public isiOS = this.platform.is('ios');
 
   constructor(
     private authService: AuthService,
@@ -26,6 +27,7 @@ export class HomePage implements OnInit {
     private auth: AngularFireAuth,
     private firestore: AngularFirestore,
     private navCtrl: NavController,
+    private platform: Platform,
   ) {
 
     // Make sure we trigger a rerender if logged in
@@ -77,10 +79,6 @@ export class HomePage implements OnInit {
   }
 
   async navigateToRoomInfo(room: Room) {
-
-    //this.navCtrl.navigateForward()
-
-
     const navExtra: NavigationExtras = {
       state: {
         room
