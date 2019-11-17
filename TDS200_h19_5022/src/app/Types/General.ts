@@ -15,4 +15,5 @@ export interface RoomInfo {
 
 export interface Room extends RoomInfo {
   image: string;
+  id: string;
 }

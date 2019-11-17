@@ -22,7 +22,7 @@ $border-color: var(--ion-color-medium);
   margin-top: 64px;
 }
 
-ion-header {
+/*ion-header {
   ion-toolbar {
     --border-width: 0 !important;
     height: 50px;
@@ -33,6 +33,11 @@ ion-header {
       font-size: 28px;
     }
   }
+} */
+
+.new-background-color{
+  --background: rgba(255, 0, 0, 0.5);
+  height: 200px !important;
 }
 
 .main-title {
