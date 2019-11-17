@@ -16,6 +16,7 @@ import {AngularFireModule} from '@angular/fire';
 import {firebaseConfig} from '../config';
 import {CreateRoomPageModule} from './pages/create-room/create-room.module';
 import {Camera} from '@ionic-native/camera/ngx';
+import {AngularFireFunctionsModule} from '@angular/fire/functions';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +30,7 @@ import {Camera} from '@ionic-native/camera/ngx';
     AngularFireAuthModule, // auth
     AngularFireStorageModule, // storage
     AngularFireAuthGuardModule,
+    AngularFireFunctionsModule,
     CreateRoomPageModule
   ],
   providers: [

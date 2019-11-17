@@ -81,7 +81,7 @@ export class HomePage implements OnInit {
   async navigateToRoomInfo(room: Room) {
     const navExtra: NavigationExtras = {
       state: {
-        room
+        room,
       }
     };
     this.router.navigate(['about'], navExtra);

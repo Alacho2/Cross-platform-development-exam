@@ -1,9 +1,9 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar class="new-background-color">
-    <!-- You can add a height to the element below -->
+    You can add a height to the element below
     <ion-title>Login</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
   <div class="top">
@@ -19,7 +19,7 @@
 
     </ion-list>
 
-    <div *ngIf="isNotSignedIn(); then notLoginBlock else isLoginBlock"></div>
+    <div *ngIf="!isNotSignedIn() then isLoginBlock"></div>
 
   </div>
 </ion-content>
@@ -34,6 +34,4 @@
   </ion-fab>
 </ng-template>
 
-<ng-template #notLoginBlock >
-</ng-template>
 
