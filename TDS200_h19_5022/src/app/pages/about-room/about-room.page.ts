@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Room} from '../../Types/General';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AngularFireAuth} from '@angular/fire/auth';
+import {Platform} from '@ionic/angular';
 
 @Component({
   selector: 'app-about-room',
@@ -13,10 +14,13 @@ export class AboutRoomPage implements OnInit {
 
   private room: Room;
   private readonly userInfo: string;
+  public isiOS = this.platform.is('ios');
+
 
   constructor(private router: Router,
               private firestore: AngularFirestore,
-              private auth: AngularFireAuth) {
+              private auth: AngularFireAuth,
+              private platform: Platform) {
     this.room = this.router.getCurrentNavigation().extras.state.room;
     this.userInfo = this.router.getCurrentNavigation().extras.state.user;
   }
@@ -40,5 +44,9 @@ export class AboutRoomPage implements OnInit {
       .update(updateInfo);
 
     // Your room is booked-message, then redirect home.
+  }
+
+  async navigateHome() {
+    this.router.navigate(['tabs/home']);
   }
 }

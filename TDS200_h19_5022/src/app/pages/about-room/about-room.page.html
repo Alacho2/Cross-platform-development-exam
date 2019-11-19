@@ -1,39 +1,43 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>{{room.title}}</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<div *ngIf="isiOS">
+  <ion-header>
+    <ion-toolbar class="custom-title-bar">
+      <ion-title size="large">{{room.title}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</div>
+
+<div *ngIf="!isiOS">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-icon name="arrow-back"
+                  size="large"
+                  (click)="navigateHome()"></ion-icon>
+        <!--     this.router.navigate(['about'], navExtra); -->
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+</div>
 
 <ion-content class="ion-padding">
   <div class="room-container">
 
+    <h1 *ngIf="!isiOS" class="main-title">{{room.title}}</h1>
+
   <img class="room-image" [src]="room.image" style="width: 100%;">
-    <h6>{{room.landlord}}</h6>
     <ion-grid>
       <ion-row>
         <ion-col size="8">
-          <h2 class="room-title">{{room.title}}</h2>
+        <h6>{{room.landlord}}</h6>
 
         </ion-col>
         <ion-col size="4" style="text-align: center; font-size: 20px">
           <ion-button (click)="bookTheRoom(room.id)">Book me</ion-button>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col>
-
-        </ion-col>
-        <ion-col>
-
-        </ion-col>
-        <ion-col>
-
-        </ion-col>
-      </ion-row>
     </ion-grid>
+
+    <h3>What the owner has to say</h3>
     <p>{{room.description}}</p>
   </div>
 
