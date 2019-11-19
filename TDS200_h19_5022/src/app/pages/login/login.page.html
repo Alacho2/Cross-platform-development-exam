@@ -1,18 +1,16 @@
-<ion-header>
-  <ion-toolbar>
-    <!-- <ion-title></ion-title> -->
-
-    <ion-buttons slot="start">
-
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<div *ngIf="isiOS">
+  <ion-header>
+    <ion-toolbar class="new-background-color">
+      <ion-title size="large">Login</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</div>
 
 <ion-content>
 
   <div class="ion-padding">
 
-    <h1 class="main-title">{{title}}</h1>
+    <h1 *ngIf="!isiOS" class="main-title">Home</h1>
     <div *ngIf="isLogin; then isLoginBlock else notLoginBlock"></div>
 
     <ng-template #isLoginBlock>

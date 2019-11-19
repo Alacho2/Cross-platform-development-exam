@@ -1,14 +1,40 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Create A Post</ion-title>
+    <ion-title>{{room.title}}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+  <div class="room-container">
 
-  <ion-button (click)="bookTheRoom(room.id)">Book me</ion-button>
+  <img class="room-image" [src]="room.image" style="width: 100%;">
+    <h6>{{room.landlord}}</h6>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="8">
+          <h2 class="room-title">{{room.title}}</h2>
+
+        </ion-col>
+        <ion-col size="4" style="text-align: center; font-size: 20px">
+          <ion-button (click)="bookTheRoom(room.id)">Book me</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+
+        </ion-col>
+        <ion-col>
+
+        </ion-col>
+        <ion-col>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <p>{{room.description}}</p>
+  </div>
 
 </ion-content>

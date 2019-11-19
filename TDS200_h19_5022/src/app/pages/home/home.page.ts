@@ -39,7 +39,7 @@ export class HomePage implements OnInit {
     this.setUpUnoccupiedRoomsAndOrderByDate();
   }
 
-  setUpUnoccupiedRoomsAndOrderByDate() {
+  setUpUnoccupiedRoomsAndOrderByDate(): void {
     this.collectionRef = this.firestore.collection<Room>('rooms',
       ref =>
         ref
@@ -52,11 +52,11 @@ export class HomePage implements OnInit {
     });
   }
 
-  isNotSignedIn() {
+  isNotSignedIn(): boolean {
     return this.auth.auth.currentUser === null;
   }
 
-  async attemptSignOut() {
+  async attemptSignOut(): Promise<void> {
     try {
       await this.authService.logoutUser();
     } catch (exception) {
@@ -64,7 +64,7 @@ export class HomePage implements OnInit {
     }
   }
 
-  async addRoom() {
+  async addRoom(): Promise<void> {
     const mcOpts: ModalOptions = {
       component: CreateRoomPage,
       animated: true,
@@ -73,7 +73,7 @@ export class HomePage implements OnInit {
     await modal.present();
   }
 
-  trackFunc(index, item) {
+  trackFunc(index, item): string {
     // console.log(item, index);
     return item.id;
   }

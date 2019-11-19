@@ -9,12 +9,19 @@
 
 
 <ion-card class="hello">
+  <ion-grid style="padding: 0">
+    <ion-row>
+      <ion-col>
+        <p class="ion-text-center">{{ room.size }} sqm</p>
+      </ion-col>
+      <ion-col>
+        <p class="ion-text-center">by {{ stripTheEmailPart(room.landlord) }}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <img [src]="room.image"/>
   <ion-card-header>
-    <ion-card-subtitle>{{room.title}}</ion-card-subtitle>
-    <p class="ion-text-right author">by {{stripEmailFromLandlord(room.landlord)}}.</p>
-    <ion-button>Delete me</ion-button>
-    <p class="ion-text-right">{{convertToTimeFromNow(room.creationDate)}}</p>
+    <ion-card-title class="ion-text-center">{{ room.title }}</ion-card-title>
   </ion-card-header>
-
+    <!-- <ion-button (click)="someFunc($event)">Click me</ion-button> -->
 </ion-card>

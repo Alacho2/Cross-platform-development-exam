@@ -25,7 +25,7 @@ export class AboutRoomPage implements OnInit {
 
   }
 
-  async bookTheRoom(roomId: string) {
+  async bookTheRoom(roomId: string): Promise<void> {
     // User can't book if they're not signed in
     const userInfo = this.auth.auth.currentUser;
     if (userInfo === null) {

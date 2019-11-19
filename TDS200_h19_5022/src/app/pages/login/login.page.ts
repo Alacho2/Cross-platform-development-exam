@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../Types/General';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
-import {ToastController} from '@ionic/angular';
-import displayToast from '../../sharedContent';
+import { displayToast } from '../../sharedContent';
+import {Platform} from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -19,11 +19,12 @@ export class LoginPage implements OnInit {
     email: "",
     password: "",
   };
+  public isiOS = this.platform.is('ios');
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private toastCtrl: ToastController,
+    private platform: Platform,
   ) { }
 
   ngOnInit() { }

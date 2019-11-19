@@ -1,30 +1,34 @@
-<!-- <ion-header>
-  <ion-toolbar class="new-background-color">
-    You can add a height to the element below
-    <ion-title>Login</ion-title>
+<div *ngIf="isiOS">
+<ion-header>
+  <ion-toolbar class="custom-title-bar">
+    <ion-title size="large">Home</ion-title>
+    <ion-buttons slot="end">
+      <div *ngIf="!isNotSignedIn() then isiOSLoginBlock"></div>
+    </ion-buttons>
   </ion-toolbar>
-</ion-header> -->
+</ion-header>
+</div>
+
 
 <ion-content>
   <div class="top">
-    <h1 class="main-title">Home</h1>
+    <h1 *ngIf="!isiOS" class="main-title">Home</h1>
     <ion-button (click)="attemptSignOut()">Log out</ion-button>
 
     <ion-list>
       <div
-           *ngFor="let room of rooms; trackBy: trackFunc"
-           (click)="navigateToRoomInfo(room)">
-        <room-card [room]="room"></room-card>
+           *ngFor="let room of rooms; trackBy: trackFunc">
+        <room-card [room]="room" (click)="navigateToRoomInfo(room)"></room-card>
       </div>
 
     </ion-list>
 
-    <div *ngIf="!isNotSignedIn() then isLoginBlock"></div>
+    <div *ngIf="!isNotSignedIn() then isAndroidLoginBlock"></div>
 
   </div>
 </ion-content>
 
-<ng-template #isLoginBlock>
+<ng-template #isAndroidLoginBlock>
 
   <ion-fab *ngIf="!isiOS" id="sticky-button" vertical="bottom" horizontal="end">
            <!-- vertical="bottom" horizontal="end" slot="fixed"> -->
@@ -32,6 +36,12 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+</ng-template>
+
+<ng-template #isiOSLoginBlock>
+  <ion-button (click)="addRoom()">
+    <ion-icon name="add-circle"></ion-icon>
+  </ion-button>
 </ng-template>
 
 

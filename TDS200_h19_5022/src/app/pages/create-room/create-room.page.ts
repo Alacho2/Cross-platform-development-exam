@@ -6,7 +6,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { v4 as uuid } from 'uuid';
-import displayToast from '../../sharedContent';
+import { displayToast } from '../../sharedContent';
 import * as moment from 'moment';
 
 @Component({
@@ -46,7 +46,7 @@ export class CreateRoomPage implements OnInit {
     this.takePicture();
   }
 
-  dismissModal() {
+  dismissModal(): void {
     try {
       this.modalController.dismiss();
     } catch (exception) {
@@ -54,7 +54,7 @@ export class CreateRoomPage implements OnInit {
     }
   }
 
-  async takePicture() {
+  async takePicture(): Promise<void> {
 
     const cameraOptions: CameraOptions = {
       allowEdit: true,
@@ -67,11 +67,14 @@ export class CreateRoomPage implements OnInit {
       this.cameraPreview = 'data:image/jpeg;base64,' + imageData;
       this.imageBase = imageData;
     } catch (e) {
+      displayToast("We can't get the camera without Cordova").then(
+        toast => toast.present()
+      );
       console.log(e);
     }
   }
 
-  async uploadImageToFirestorage() {
+  async uploadImageToFirestorage(): Promise<string> {
     const fileName = `tds-${uuid()}.png`;
     const firestorageFileRef = this.fireStorage.ref(fileName);
     const uploadTask = firestorageFileRef.putString(this.imageBase, 'base64', { contentType: 'image/png' });
@@ -79,7 +82,7 @@ export class CreateRoomPage implements OnInit {
     return firestorageFileRef.getDownloadURL().toPromise();
   }
 
-  async upload() {
+  async upload(): Promise<void> {
     const image = await this.uploadImageToFirestorage();
     const { landlord, description, size, title } = this.roomInfo;
 
