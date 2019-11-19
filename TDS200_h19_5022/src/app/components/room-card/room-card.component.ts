@@ -25,8 +25,8 @@ export class RoomCardComponent implements OnInit {
     return stripEmailFromLandlord(email);
   }
 
-  // Rxjs brings back Timestamp<T>.
-  // I'll honestly say I have no idea how to dael with it
+  // Firebase brings back Timestamp<T>.
+  // I'll honestly say I have no idea how to deal with it
   convertToTimeFromNow(date: any): string {
     return moment.unix(date.seconds).fromNow();
   }

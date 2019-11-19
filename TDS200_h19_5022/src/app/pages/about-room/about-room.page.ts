@@ -37,7 +37,13 @@ export class AboutRoomPage implements OnInit {
       return;
     }
 
-    const updateInfo = {occupied: true, by: userInfo.email};
+    /*const updateInfo = {occupied: true, by: userInfo.email}; */
+
+    // TODO(Håvard) Update the current time stamp in the database with 1 hour from now
+
+    const date = new Date();
+
+    const updateInfo = {};
 
     return await this.firestore.collection<Room>("rooms")
       .doc(roomId)

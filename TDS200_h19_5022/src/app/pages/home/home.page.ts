@@ -8,6 +8,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import {Room, RoomInfo} from '../../Types/General';
 import { AngularFirestore } from '@angular/fire/firestore';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-home',
@@ -37,12 +38,19 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
     this.setUpUnoccupiedRoomsAndOrderByDate();
+
+    const date = new Date();
+
+    const momentum = moment(date);
+    const addedDate = momentum.add(1, 'h').format();
+    console.log(moment(addedDate).unix());
   }
 
   setUpUnoccupiedRoomsAndOrderByDate(): void {
     this.collectionRef = this.firestore.collection<Room>('rooms',
       ref =>
         ref
+        // TODO(Håvard): Filter this out based on rooms that has a smaller time than current.
           .where('occupied', '==', false)
           .orderBy('creationDate', 'desc')
     );
