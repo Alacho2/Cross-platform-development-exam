@@ -4,6 +4,8 @@ import {Room} from '../../Types/General';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Platform} from '@ionic/angular';
+import {displayToast} from '../../sharedContent';
+import {getSyntheticPropertyName} from '@angular/compiler/src/render3/util';
 
 const RENTED_TIME = 2;
 
@@ -17,6 +19,7 @@ export class AboutRoomPage implements OnInit {
   private room: Room;
   private readonly userInfo: string;
   public isiOS = this.platform.is('ios');
+  private collectionRef;
 
 
   constructor(private router: Router,
@@ -39,21 +42,29 @@ export class AboutRoomPage implements OnInit {
       return;
     }
 
-    /*const updateInfo = {occupied: true, by: userInfo.email}; */
-
-    // TODO(Håvard) Update the current time stamp in the database with 1 hour from now
+    // Check for already rented rooms?
 
     const rentedTo = new Date();
     rentedTo.setHours(rentedTo.getHours() + RENTED_TIME);
 
-    const updateInfo = {rentedTo};
+    const updateInfo = {rentedTo, renter: userInfo.email};
 
-
-    return await this.firestore.collection<Room>("rooms")
-      .doc(roomId)
-      .update(updateInfo);
-
+    try {
+      this.firestore.collection<Room>("rooms")
+        .doc(roomId)
+        .update(updateInfo);
+    } catch (exception) {
+      displayToast("Something went terribly wrong when booking that room").then(toast =>
+        toast.present()
+      );
+      return;
+    }
     // Your room is booked-message, then redirect home.
+    displayToast("The room is now booked for two hours. Thanks").then(toast =>
+      toast.present()
+    );
+
+    this.navigateHome();
   }
 
   async navigateHome() {

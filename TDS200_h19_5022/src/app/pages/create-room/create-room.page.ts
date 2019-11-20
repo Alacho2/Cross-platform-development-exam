@@ -100,7 +100,6 @@ export class CreateRoomPage implements OnInit {
       return;
     }
 
-
     const creationDate = new Date();
 
     this.fireStore.collection('rooms').add({
