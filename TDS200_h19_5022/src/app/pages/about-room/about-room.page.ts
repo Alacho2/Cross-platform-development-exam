@@ -5,6 +5,8 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Platform} from '@ionic/angular';
 
+const RENTED_TIME = 2;
+
 @Component({
   selector: 'app-about-room',
   templateUrl: './about-room.page.html',
@@ -41,9 +43,11 @@ export class AboutRoomPage implements OnInit {
 
     // TODO(Håvard) Update the current time stamp in the database with 1 hour from now
 
-    const date = new Date();
+    const rentedTo = new Date();
+    rentedTo.setHours(rentedTo.getHours() + RENTED_TIME);
 
-    const updateInfo = {};
+    const updateInfo = {rentedTo};
+
 
     return await this.firestore.collection<Room>("rooms")
       .doc(roomId)

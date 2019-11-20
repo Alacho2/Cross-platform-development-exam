@@ -100,6 +100,7 @@ export class CreateRoomPage implements OnInit {
       return;
     }
 
+
     const creationDate = new Date();
 
     this.fireStore.collection('rooms').add({
@@ -108,8 +109,8 @@ export class CreateRoomPage implements OnInit {
       description,
       size,
       image,
+      rentedTo: creationDate,
       creationDate,
-      occupied: false,
     });
 
     this.dismissModal();

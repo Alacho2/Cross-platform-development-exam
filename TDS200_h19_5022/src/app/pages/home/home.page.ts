@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { AuthService } from '../../service/auth.service';
-import {NavigationExtras, Router} from '@angular/router';
-import {ModalController, NavController, Platform } from '@ionic/angular';
+import { NavigationExtras, Router } from '@angular/router';
+import { ModalController, NavController, Platform } from '@ionic/angular';
 import { CreateRoomPage } from '../create-room/create-room.page';
 import { ModalOptions } from '@ionic/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
-import {Room, RoomInfo} from '../../Types/General';
+import { Room } from '../../Types/General';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as moment from 'moment';
 
@@ -15,7 +15,7 @@ import * as moment from 'moment';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnChanges {
 
   private rooms: Room[];
   private collectionRef;
@@ -37,21 +37,26 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setUpUnoccupiedRoomsAndOrderByDate();
-
-    const date = new Date();
-
-    const momentum = moment(date);
-    const addedDate = momentum.add(1, 'h').format();
-    console.log(moment(addedDate).unix());
+     this.setUpUnoccupiedRoomsAndOrderByDate();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    console.warn(changes);
+  }
+
+
   setUpUnoccupiedRoomsAndOrderByDate(): void {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() + 1 );
+
+    // Get rooms based on the rentedTo value being smaller than a minute from now
+    // Sort on rentedTo, then on creationDate.
+    // a minute from now, because we wanna make sure that new rooms appear
     this.collectionRef = this.firestore.collection<Room>('rooms',
       ref =>
         ref
-        // TODO(Håvard): Filter this out based on rooms that has a smaller time than current.
-          .where('occupied', '==', false)
+          .where('rentedTo', '<=', new Date(now))
+          .orderBy('rentedTo', 'desc')
           .orderBy('creationDate', 'desc')
     );
     const firebaseRooms$ = this.collectionRef.valueChanges({idField: 'id'}) as Observable<Room[]>;

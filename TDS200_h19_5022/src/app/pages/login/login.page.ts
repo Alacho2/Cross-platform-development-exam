@@ -3,7 +3,7 @@ import { User } from '../../Types/General';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
 import { displayToast } from '../../sharedContent';
-import {Platform} from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -39,6 +39,8 @@ export class LoginPage implements OnInit {
     }
   }
 
+  // Param: Make sure we only allow using this function if
+  // we pass login or register, to correctly handle the data.
   async attemptLoginOrRegister(which: "login" | "register") {
     const {email, password} = this.user;
 
@@ -73,6 +75,5 @@ export class LoginPage implements OnInit {
       }
     }
   }
-
 
 }

@@ -3,7 +3,6 @@ import {Room} from '../../Types/General';
 import { stripEmailFromLandlord } from '../../sharedContent';
 
 import * as moment from 'moment';
-import {Timestamp} from 'rxjs';
 
 @Component({
   selector: 'room-card',
