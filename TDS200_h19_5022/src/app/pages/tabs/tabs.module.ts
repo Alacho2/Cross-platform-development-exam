@@ -15,10 +15,13 @@ const routes: Routes = [
     children: [
       { path: 'home', loadChildren: () => import('../home/home.module').then( m => m.HomePageModule), },
       // { path: 'tab2', loadChildren: './pages/tab2/tab2.module#Tab2PageModule' },
-      { path: 'tab2', loadChildren: '../tab2/tab2.module#Tab2PageModule', },
+      {
+        path: 'tab2',
+        loadChildren: '../tab2/tab2.module#Tab2PageModule',
+      },
       {
         path: 'profile',
-        loadChildren: '../tab2/tab2.module#Tab2PageModule',
+        loadChildren: '../profile/profile.module#ProfilePageModule',
         ...canActivate(redirectUnauthorizedTo(['tabs/login']))
       },
       {
