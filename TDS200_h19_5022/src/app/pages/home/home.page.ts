@@ -1,16 +1,15 @@
 import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import { AuthService } from '../../service/auth.service';
-import { NavigationExtras, Router } from '@angular/router';
-import { ModalController, NavController, Platform } from '@ionic/angular';
-import { CreateRoomPage } from '../create-room/create-room.page';
-import { ModalOptions } from '@ionic/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
-import { Room } from '../../Types/General';
-import { AngularFirestore } from '@angular/fire/firestore';
-import * as moment from 'moment';
-
-import {} from 'googlemaps';
+import {AuthService} from '../../service/auth.service';
+import {NavigationExtras, Router} from '@angular/router';
+import {ModalController, NavController, Platform} from '@ionic/angular';
+import {CreateRoomPage} from '../create-room/create-room.page';
+import {ModalOptions} from '@ionic/core';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {Observable} from 'rxjs';
+import {Room} from '../../Types/General';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {Geolocation, Geoposition} from '@ionic-native/geolocation/ngx';
+import { getUsersDistanceToRoom } from '../../sharedContent';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +18,8 @@ import {} from 'googlemaps';
 })
 export class HomePage implements OnInit, OnChanges {
 
-  private rooms: Room[];
+  private rooms: Room[] = [];
+  private position: Geoposition;
   private collectionRef;
   public isiOS = this.platform.is('ios');
 
@@ -31,6 +31,7 @@ export class HomePage implements OnInit, OnChanges {
     private firestore: AngularFirestore,
     private navCtrl: NavController,
     private platform: Platform,
+    private location: Geolocation
   ) {
 
     // Make sure we trigger a rerender if logged in
@@ -38,15 +39,14 @@ export class HomePage implements OnInit, OnChanges {
 
   }
 
-  ngOnInit(): void {
-    const matrixService = new google.maps.DistanceMatrixService();
-    // this.setUpUnoccupiedRoomsAndOrderByDate();
+  async ngOnInit() {
+    this.position = await this.getLocation();
+    this.setUpUnoccupiedRoomsAndOrderByDate();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.warn(changes);
   }
-
 
   setUpUnoccupiedRoomsAndOrderByDate(): void {
     const now = new Date();
@@ -64,8 +64,16 @@ export class HomePage implements OnInit, OnChanges {
     );
     const firebaseRooms$ = this.collectionRef.valueChanges({idField: 'id'}) as Observable<Room[]>;
     firebaseRooms$.subscribe(rooms => {
+
+      rooms.forEach(async room => {
+        room.distanceToRoom = await getUsersDistanceToRoom(this.position, room.latitude, room.longitude);
+      });
       this.rooms = rooms;
     });
+  }
+
+  async getLocation() {
+    return await this.location.getCurrentPosition();
   }
 
   isNotSignedIn(): boolean {

@@ -20,7 +20,9 @@
     <ion-list>
       <div
            *ngFor="let room of rooms; trackBy: trackFunc">
-        <room-card [room]="room" (click)="navigateToRoomInfo(room)"></room-card>
+        <room-card [room]="room"
+                   [userPosition]="position"
+                   (click)="navigateToRoomInfo(room)"></room-card>
       </div>
 
     </ion-list>

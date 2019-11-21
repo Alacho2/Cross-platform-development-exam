@@ -12,7 +12,18 @@
   <img [src]="room.image"/>
   <ion-card-header>
     <ion-card-title class="ion-text-center ion-padding-bottom">{{ room.title }}</ion-card-title>
-    <ion-card-subtitle class="ion-text-right">{{convertToTimeFromNow(room.creationDate)}}</ion-card-subtitle>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <p>{{room.distanceToRoom?.rows[0]?.elements[0]?.distance?.text || "ddsa"}}</p>
+        </ion-col>
+        <ion-col>
+          <p class="ion-text-right">{{convertToTimeFromNow(room.creationDate)}}</p>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-card-header>
     <!-- <ion-button (click)="someFunc($event)">Click me</ion-button> -->
 </ion-card>

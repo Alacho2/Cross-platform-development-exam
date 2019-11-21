@@ -5,6 +5,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Room } from '../../Types/General';
 import { Observable } from 'rxjs';
 import { NavigationExtras, Router } from '@angular/router';
+import {Geolocation, Geoposition} from '@ionic-native/geolocation/ngx';
+import {getUsersDistanceToRoom} from '../../sharedContent';
 
 @Component({
   selector: 'app-profile',
@@ -16,15 +18,19 @@ export class ProfilePage implements OnInit {
   public isiOS = this.platform.is('ios');
   private ownedRooms: Room[] = [];
   private rentedRooms: Room[] = [];
+  private position: Geoposition;
 
   constructor(
     private platform: Platform,
     private firestore: AngularFirestore,
     private auth: AngularFireAuth,
     private router: Router,
+    private location: Geolocation
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+
+    this.position = await this.getLocation();
 
     const userEmail = this.auth.auth.currentUser.email;
     const date = parseInt((new Date().getTime() / 1000).toFixed(0), 10);
@@ -41,6 +47,11 @@ export class ProfilePage implements OnInit {
     // and what the user is renting.
     const ownedFirebaseRooms$ = collectionRef.valueChanges({idField: 'id'}) as Observable<Room[]>;
     ownedFirebaseRooms$.subscribe(rooms => {
+
+      rooms.forEach(async room => {
+        room.distanceToRoom = await getUsersDistanceToRoom(this.position, room.latitude, room.longitude);
+      });
+
       this.ownedRooms = rooms.filter(room => {
         return room.landlord === userEmail;
       });
@@ -49,6 +60,10 @@ export class ProfilePage implements OnInit {
         return room.renter === userEmail && room.rentedTo.seconds > date;
       });
     });
+  }
+
+  async getLocation() {
+    return await this.location.getCurrentPosition();
   }
 
   trackFunc(index, item): string {

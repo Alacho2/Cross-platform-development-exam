@@ -1,3 +1,5 @@
+import DistanceMatrixResponse = google.maps.DistanceMatrixResponse;
+
 export interface User {
   email: string;
   password: string;
@@ -16,6 +18,9 @@ export interface RoomInfo {
 export interface Room extends RoomInfo {
   image: string;
   id: string;
+  latitude: number;
+  longitude: number;
+  distanceToRoom: DistanceMatrixResponse;
   rentedTo?: Timestamp;
   renter?: string;
 }

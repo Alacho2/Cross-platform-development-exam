@@ -17,6 +17,7 @@ import {firebaseConfig} from '../config';
 import {CreateRoomPageModule} from './pages/create-room/create-room.module';
 import {Camera} from '@ionic-native/camera/ngx';
 import {AngularFireFunctionsModule} from '@angular/fire/functions';
+import {Geolocation} from '@ionic-native/geolocation/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,6 +38,7 @@ import {AngularFireFunctionsModule} from '@angular/fire/functions';
     StatusBar,
     SplashScreen,
     Camera,
+    Geolocation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

@@ -8,6 +8,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { v4 as uuid } from 'uuid';
 import { displayToast } from '../../sharedContent';
 import * as moment from 'moment';
+import {Geolocation, Geoposition} from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-create-room',
@@ -19,6 +20,7 @@ export class CreateRoomPage implements OnInit {
   private cameraPreview = '';
   private imageBase = '';
   private currTime = '';
+  private position: Geoposition;
   private roomInfo: RoomInfo = {
     title: '',
     landlord: '',
@@ -34,7 +36,8 @@ export class CreateRoomPage implements OnInit {
     private camera: Camera,
     private auth: AngularFireAuth,
     private fireStorage: AngularFireStorage,
-    private fireStore: AngularFirestore
+    private fireStore: AngularFirestore,
+    private location: Geolocation
   ) {
     this.roomInfo.landlord = this.auth.auth.currentUser.email;
     this.currTime = moment().format();
@@ -42,8 +45,9 @@ export class CreateRoomPage implements OnInit {
     // this.roomInfo.startTime = moment().format();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.takePicture();
+    this.position = await this.location.getCurrentPosition();
   }
 
   dismissModal(): void {
@@ -54,7 +58,7 @@ export class CreateRoomPage implements OnInit {
     }
   }
 
-  async takePicture(): Promise<void> {
+  async takePicture() {
 
     const cameraOptions: CameraOptions = {
       allowEdit: true,
@@ -100,6 +104,8 @@ export class CreateRoomPage implements OnInit {
       return;
     }
 
+    const { latitude, longitude } = this.position.coords;
+
     const creationDate = new Date();
 
     this.fireStore.collection('rooms').add({
@@ -107,6 +113,8 @@ export class CreateRoomPage implements OnInit {
       landlord,
       description,
       size,
+      latitude,
+      longitude,
       image,
       rentedTo: creationDate,
       creationDate,
