@@ -16,4 +16,12 @@ export interface RoomInfo {
 export interface Room extends RoomInfo {
   image: string;
   id: string;
+  rentedTo?: Timestamp;
+  renter?: string;
+}
+
+// Lets help Firebase deal with its Timestamp type
+interface Timestamp {
+  seconds: number;
+  nanoseconds: number;
 }

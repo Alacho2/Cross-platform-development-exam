@@ -7,8 +7,44 @@
 </div>
 
 <ion-content>
-  <div class="top">
+  <div class="top ion-padding-horizontal">
     <h1 *ngIf="!isiOS" class="main-title">Your profile</h1>
+
+    <h4>Rooms Offered For Rent By You</h4>
+
+    <div *ngIf="getRoomsForRentLength() then availableOwnedRooms; else noOwnedRooms"></div>
+
+    <h4 >Rooms You're Renting</h4>
+
+    <div *ngIf="getRoomsRentedLength() then availableRentedRooms; else noRentedRooms"></div>
+
   </div>
 
 </ion-content>
+
+<ng-template #availableOwnedRooms>
+  <ion-list>
+    <div
+      *ngFor="let room of ownedRooms; trackBy: trackFunc">
+      <room-card [room]="room" (click)="navigateToRoomInfo(room)"></room-card>
+    </div>
+  </ion-list>
+</ng-template>
+
+<ng-template #noOwnedRooms>
+  <p>You're not offering rooms right now</p>
+</ng-template>
+
+
+<ng-template #availableRentedRooms>
+  <ion-list>
+    <div
+      *ngFor="let room of rentedRooms; trackBy: trackFunc">
+      <room-card [room]="room" (click)="navigateToRoomInfo(room)"></room-card>
+    </div>
+  </ion-list>
+</ng-template>
+
+<ng-template #noRentedRooms>
+  <p>You haven't rented a room right now.</p>
+</ng-template>

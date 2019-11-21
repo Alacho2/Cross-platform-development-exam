@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import { Location } from '@angular/common';
 import {Room} from '../../Types/General';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AngularFireAuth} from '@angular/fire/auth';
@@ -25,7 +26,8 @@ export class AboutRoomPage implements OnInit {
   constructor(private router: Router,
               private firestore: AngularFirestore,
               private auth: AngularFireAuth,
-              private platform: Platform) {
+              private platform: Platform,
+              private location: Location) {
     this.room = this.router.getCurrentNavigation().extras.state.room;
     this.userInfo = this.router.getCurrentNavigation().extras.state.user;
   }
@@ -41,8 +43,6 @@ export class AboutRoomPage implements OnInit {
       this.router.navigate(['tabs/login']);
       return;
     }
-
-    // Check for already rented rooms?
 
     const rentedTo = new Date();
     rentedTo.setHours(rentedTo.getHours() + RENTED_TIME);
@@ -68,6 +68,6 @@ export class AboutRoomPage implements OnInit {
   }
 
   async navigateHome() {
-    this.router.navigate(['tabs/home']);
+    this.location.back();
   }
 }

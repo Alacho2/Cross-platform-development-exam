@@ -3,6 +3,8 @@ import {Room} from '../../Types/General';
 import { stripEmailFromLandlord } from '../../sharedContent';
 
 import * as moment from 'moment';
+import * as firebase from 'firebase';
+import Timestamp = firebase.firestore.Timestamp;
 
 @Component({
   selector: 'room-card',
@@ -24,8 +26,6 @@ export class RoomCardComponent implements OnInit {
     return stripEmailFromLandlord(email);
   }
 
-  // Firebase brings back Timestamp<T>.
-  // I'll honestly say I have no idea how to deal with it
   convertToTimeFromNow(date: any): string {
     return moment.unix(date.seconds).fromNow();
   }
