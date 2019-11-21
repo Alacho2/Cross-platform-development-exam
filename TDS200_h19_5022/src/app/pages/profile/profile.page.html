@@ -2,6 +2,23 @@
   <ion-header>
     <ion-toolbar class="custom-title-bar">
       <ion-title size="large">Your profile</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="attemptSignOut()">
+          <p>Sign out</p>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+</div>
+
+<div *ngIf="!isiOS">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-button (click)="attemptSignOut()">
+          <p>Sign out</p>
+        </ion-button>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
 </div>

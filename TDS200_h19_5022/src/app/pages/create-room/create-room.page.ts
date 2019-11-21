@@ -58,6 +58,9 @@ export class CreateRoomPage implements OnInit {
     }
   }
 
+  /**
+   * Take a picture, add it to the top of the card in question
+   */
   async takePicture() {
 
     const cameraOptions: CameraOptions = {
@@ -78,6 +81,9 @@ export class CreateRoomPage implements OnInit {
     }
   }
 
+  /**
+   * Upload the image to firestorege and use that reference in the room-database
+   */
   async uploadImageToFirestorage(): Promise<string> {
     const fileName = `tds-${uuid()}.png`;
     const firestorageFileRef = this.fireStorage.ref(fileName);
@@ -86,6 +92,10 @@ export class CreateRoomPage implements OnInit {
     return firestorageFileRef.getDownloadURL().toPromise();
   }
 
+  /**
+   * Upload the room to firestore, make sure that a room can't be empty
+   * Display toasts for the user to show that they are doing something wrong
+   */
   async upload(): Promise<void> {
     const image = await this.uploadImageToFirestorage();
     const { landlord, description, size, title } = this.roomInfo;

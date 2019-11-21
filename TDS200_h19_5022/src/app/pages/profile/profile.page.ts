@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { NavigationExtras, Router } from '@angular/router';
 import {Geolocation, Geoposition} from '@ionic-native/geolocation/ngx';
 import {getUsersDistanceToRoom} from '../../sharedContent';
+import {AuthService} from '../../service/auth.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-profile',
@@ -24,8 +26,10 @@ export class ProfilePage implements OnInit {
     private platform: Platform,
     private firestore: AngularFirestore,
     private auth: AngularFireAuth,
+    private authService: AuthService,
     private router: Router,
-    private location: Geolocation
+    private location: Geolocation,
+    private angLocation: Location
   ) { }
 
   async ngOnInit() {
@@ -69,6 +73,15 @@ export class ProfilePage implements OnInit {
   trackFunc(index, item): string {
     // console.log(item, index);
     return item.id;
+  }
+
+  async attemptSignOut(): Promise<void> {
+    try {
+      await this.authService.logoutUser();
+    } catch (exception) {
+      console.log(exception);
+    }
+    this.angLocation.back();
   }
 
   getRoomsForRentLength(): number {

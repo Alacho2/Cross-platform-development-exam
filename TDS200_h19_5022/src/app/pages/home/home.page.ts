@@ -80,14 +80,6 @@ export class HomePage implements OnInit, OnChanges {
     return this.auth.auth.currentUser === null;
   }
 
-  async attemptSignOut(): Promise<void> {
-    try {
-      await this.authService.logoutUser();
-    } catch (exception) {
-      console.log(exception);
-    }
-  }
-
   async addRoom(): Promise<void> {
     const mcOpts: ModalOptions = {
       component: CreateRoomPage,
@@ -98,7 +90,6 @@ export class HomePage implements OnInit, OnChanges {
   }
 
   trackFunc(index, item): string {
-    // console.log(item, index);
     return item.id;
   }
 
