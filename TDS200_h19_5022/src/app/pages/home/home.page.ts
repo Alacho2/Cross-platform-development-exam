@@ -10,6 +10,8 @@ import { Room } from '../../Types/General';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as moment from 'moment';
 
+import {} from 'googlemaps';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -37,7 +39,8 @@ export class HomePage implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-     this.setUpUnoccupiedRoomsAndOrderByDate();
+    const matrixService = new google.maps.DistanceMatrixService();
+    // this.setUpUnoccupiedRoomsAndOrderByDate();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
